@@ -56,6 +56,8 @@ persons = persons.filter(person => person.id !==id)
 response.status(204).end()})
 
 app.post('/api/persons', (request, response) => {
+const body = request.body
+
     const person = new Person({
       name: body.content,
 
