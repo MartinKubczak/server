@@ -62,7 +62,7 @@ const body = request.body
       name: body.content,
 
     })
-    note.save().then(savedPerson =>{
+    person.save().then(savedPerson =>{
       response.json(savedPerson)
     })
   })
