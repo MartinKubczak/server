@@ -1,9 +1,18 @@
 const express = require('express')
+require('dotenv').config()
 const app = express()
 const cors = require('cors')
+const mongoose = require('mongoose')
+const Person = require('./models/person')
+
 app.use(cors())
 app.use(express.json())
 app.use(express.static('build'))
+
+
+
+
+
 let persons = [
       {
         "name": "Arto Hellas",       
@@ -31,29 +40,29 @@ let persons = [
       }
     ]
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+       Person.find({}).then(persons=>{
+        response.json(persons)
+})
 })
 app.get('/api/persons/:id', (request, response)=>{
-    const id = Number(request.params.id)
-    const person = persons.find(person=>person.id=== id)
-    
-    if (person) {
-    response.json(person)    
-    } else{
-        response.status(404).end()
-    }
-})
+  Person.findById(request.params.id).then(person => {
+    response.json(person)
+  })
+}
+)
 app.delete('api/persons/:id', (request, response)=>{
 const id = Number(request.params.id)
 persons = persons.filter(person => person.id !==id)
 response.status(204).end()})
 
 app.post('/api/persons', (request, response) => {
-    const person = request.body
-    person.id = persons.length+1
-    console.log(person)
-    persons = persons.concat(person)
-    response.json(person)
+    const person = new Person({
+      name: body.content,
+
+    })
+    note.save().then(savedNote =>{
+      response.json(savedNote)
+    })
   })
 
   const PORT = process.env.PORT || 3001
