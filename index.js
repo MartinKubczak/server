@@ -60,8 +60,8 @@ app.post('/api/persons', (request, response) => {
       name: body.content,
 
     })
-    note.save().then(savedNote =>{
-      response.json(savedNote)
+    note.save().then(savedPerson =>{
+      response.json(savedPerson)
     })
   })
 
